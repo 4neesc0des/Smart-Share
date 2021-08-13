@@ -1,0 +1,263 @@
+:root {
+  --main-bg-color: hsl(217.1, 39.5%, 83.1%);
+  --border-color: rgba(74, 154, 197, 0.637);
+  --container-width: 50rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-size: 62.5%;
+  font-family: system-ui;
+  background-color: var(--main-bg-color);
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.upload-container {
+  flex-basis: var(--container-width);
+  background-color: #f0f0f0;
+  border-radius: 0.6rem;
+  box-shadow: 0px 2rem 2rem #0000002e;
+  padding: 3rem;
+}
+
+.drop-zone {
+  min-height: 20rem;
+  border: 0.3rem dashed var(--border-color);
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s linear;
+}
+.dragged.drop-zone {
+  background-color: var(--main-bg-color);
+  border-color: royalblue;
+}
+
+.icon-container {
+  width: 7.5rem;
+  height: 10rem;
+  position: relative;
+}
+.icon-container img {
+  width: 7.5rem;
+  transform-origin: bottom;
+  position: absolute;
+  transition: transform 0.3s linear;
+}
+
+.icon-container .center {
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.8rem;
+}
+
+/*  */
+
+.icon-container .right,
+.icon-container .left {
+  filter: grayscale(0.5);
+  scale: 0.9;
+}
+
+.dragged .icon-container .center {
+  transform: translateY(-0.2rem);
+}
+
+.dragged .icon-container .right {
+  transform: rotate(15deg) translateX(1rem);
+}
+
+.dragged .icon-container .left {
+  transform: rotate(-15deg) translateX(-1rem);
+}
+
+/* file input hide */
+
+.browseBtn {
+  color: royalblue;
+  cursor: pointer;
+}
+
+.progress-container {
+  flex-basis: var(--container-width);
+  border-radius: 0.3rem;
+  margin-top: 2rem;
+  background-color: var(--main-bg-color);
+  height: 7rem;
+  position: relative;
+  display: none;
+}
+
+.progress-container .bg-progress {
+  background-color: rgb(172, 183, 221);
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  transition: all 0.3s linear;
+  transform: scalex(0);
+  overflow: hidden;
+  position: absolute;
+}
+
+.progress-container .inner-container {
+  position: absolute;
+  width: calc(100% - 2 * 1.5rem);
+  z-index: 3;
+  margin: 0.7rem 1.5rem;
+}
+
+.percent-container {
+  font-size: 1.3rem;
+  margin-top: 0.3rem;
+  opacity: 0.9;
+}
+
+.progress-bar {
+  height: 0.2rem;
+  width: 0%;
+  background-color: royalblue;
+  transform-origin: left;
+  transition: all 0.3s linear;
+  border-radius: 2px;
+}
+
+/* sharing container */
+.sharing-container {
+  width: var(--container-width);
+  display: none;
+}
+.sharing-container p {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #404040;
+  margin: 2rem 0 1rem;
+}
+
+.sharing-container .input-container input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  border: 0.3rem dashed var(--border-color);
+  border-radius: 0.3rem;
+  background-color: var(--main-bg-color);
+  color: #404040;
+  outline: none;
+}
+.input-container {
+  position: relative;
+}
+.input-container img {
+  position: absolute;
+  height: 2.2rem;
+  width: 3rem;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--main-bg-color);
+  cursor: pointer;
+}
+
+/* email container */
+
+.email-container {
+  display: flex;
+  align-items: center;
+}
+
+.email-container form {
+  width: 100%;
+  border: 0.3rem dashed var(--border-color);
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.email-container .field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.email-container label {
+  font-size: 1.8rem;
+}
+
+.email-container input {
+  font-size: 1.8rem;
+  border: none;
+  background-color: transparent;
+  padding: 0 1rem;
+  border-bottom: 0.3rem solid var(--border-color);
+  outline: none;
+}
+
+.send-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.send-btn-container button {
+  font-size: 1.8rem;
+  padding: 8px 40px;
+  margin-top: 1.5rem;
+  background-color: var(--main-bg-color);
+  border: none;
+  outline: none;
+  border-radius: 0.3rem;
+  color: royalblue;
+  cursor: pointer;
+}
+
+/* tost  */
+.toast {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translate(-50%, 6rem);
+  font-size: 1.6rem;
+  padding: 1rem 1.5rem;
+  color: #fff;
+  background-color: var(--border-color);
+  border-radius: 3px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform, 0.3s linear;
+}
+/* background */
+
+.vector-bg {
+  background: url("./bgImg.svg") no-repeat center;
+  height: 50vh;
+  width: 50vw;
+  background-size: contain;
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --container-width: 350px;
+  }
+
+  .vector-bg {
+    display: none;
+  }
+
+  .email-container .field {
+    flex-direction: column;
+  }
+}
