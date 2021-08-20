@@ -13,7 +13,7 @@ const copyBtn = document.querySelector("#copy-btn");
 const toast = document.querySelector(".toast");
 const emailForm = document.querySelector("#emailFrom");
 
-const host = "https://innshare.herokuapp.com/";
+const host = "https://smartshare-anees.herokuapp.com/";
 const uploadURL = `${host}api/files`;
 const emailURL = `${host}api/files/send`;
 
