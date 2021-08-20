@@ -4,7 +4,7 @@ const dropZone = document.querySelector(".drop-zone");
 const fileInput = document.querySelector("#fileInput");
 const browseBtn = document.querySelector(".browseBtn");
 const bgProgress = document.querySelector(".bg-progress");
-const percent = document.querySelector("#percent");
+const percentText = document.querySelector("#percentText");
 const progressBar = document.querySelector(".progress-bar");
 const progressContainer = document.querySelector(".progress-container");
 const fileurlInput = document.querySelector("#fileURl");
@@ -13,7 +13,7 @@ const copyBtn = document.querySelector("#copy-btn");
 const toast = document.querySelector(".toast");
 const emailForm = document.querySelector("#emailFrom");
 
-const host = "https://smartshare-anees.herokuapp.com/";
+const host = "https://smartshare-anees.herokuapp.com";
 const uploadURL = `${host}api/files`;
 const emailURL = `${host}api/files/send`;
 
@@ -67,30 +67,31 @@ const uploadFile = () => {
     resetFileInput();
     return;
   }
-  file = fileInput.files[0];
+  let file = fileInput.files[0];
 
   if (file.size > maxAllowedSize) {
     showToast("can't upload more than 100mb");
   }
   progressContainer.style.display = "block";
 
-  file = fileInput.files[0];
   const formData = new FormData();
   formData.append("myfile", file);
 
   const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      console.log(xhr.response);
-      onUploadSuccess(JSON.parse(xhr.response));
-    }
-  };
+
   // uploadProgress
   xhr.upload.onprogress = updateProgress;
   xhr.upload.onerror = () => {
     resetFileInput();
     showToast(`Error in upload ${xhr.statusText}`);
   };
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      onUploadSuccess(xhr.responseText);
+    }
+  };
+
   xhr.open("POST", uploadURL);
   xhr.send(formData);
 };
@@ -99,14 +100,14 @@ const updateProgress = (e) => {
   const percent = Math.round((e.loaded / e.total) * 100);
   console.log(percent);
   bgProgress.style.transform = `scaleX(${percent / 100})%`;
-  percent.innerText = percent;
+  percentText.innerText = percent;
   progressBar.style.width = `${percent}%`;
 };
 
-const onUploadSuccess = ({ file: url }) => {
-  fileurlInput.value = "";
+const onUploadSuccess = (res) => {
+  fileInput.value = "";
   emailForm[2].removeAttribute("disabled");
-
+  const { file: url } = JSON.parse(res);
   progressContainer.style.display = "none";
   sharingContainer.style.display = "block";
   fileurlInput.value = url;
@@ -140,6 +141,7 @@ emailForm.addEventListener("submit", (e) => {
     });
 });
 
+let toastTimer;
 const showToast = (msg) => {
   clearTimeout(toastTimer);
   toast.innerText = msg;
