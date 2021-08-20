@@ -67,14 +67,14 @@ const uploadFile = () => {
     resetFileInput();
     return;
   }
-  const file = fileInput.files[0];
+  file = fileInput.files[0];
 
   if (file.size > maxAllowedSize) {
     showToast("can't upload more than 100mb");
   }
   progressContainer.style.display = "block";
 
-  const file = fileInput.files[0];
+  file = fileInput.files[0];
   const formData = new FormData();
   formData.append("myfile", file);
 
@@ -146,6 +146,6 @@ const showToast = (msg) => {
   toast.style.transform = "translate(-50%, 0)";
 
   toastTimer = setTimeout(() => {
-    toast.style.transform = "translate(-50%, 6rem)";
+    toast.style.transform = "translate(-50%, 10rem)";
   }, 2000);
 };
