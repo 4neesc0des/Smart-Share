@@ -2,10 +2,18 @@ require("dotenv").config();
 require("./db/conn");
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 const app = express();
 const fileRouter = require("./routes/fileRouter");
 const showRouter = require("./routes/showRouter");
 const downloadRouter = require("./routes/download");
+
+// cors
+const corsOptions = {
+  origin: process.env.ALLOWED_CLIENTS.split(","),
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.static("public"));
 // templete engine
